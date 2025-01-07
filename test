@@ -1,0 +1,4 @@
+while _G.Test == true
+print("it ON")
+wait(1)
+end
