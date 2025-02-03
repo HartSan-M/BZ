@@ -1,0 +1,23 @@
+local player = game.Players.LocalPlayer
+local teleportCFrame = CFrame.new(226.62612915039062, -65.00001525878906, -368.3670349121094)
+
+-- Teleport player
+if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+    player.Character.HumanoidRootPart.CFrame = teleportCFrame
+end
+
+-- Wait 2 seconds
+task.wait(2)
+
+-- Fire the PairRadio remote event
+local args = {
+    workspace:WaitForChild("Facility"):WaitForChild("Sectors"):WaitForChild("Sector 2"):WaitForChild("Interactions"):WaitForChild("Power"):WaitForChild("RadioRelays"):WaitForChild("Relay")
+}
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Events"):WaitForChild("PairRadio"):FireServer(unpack(args))
+
+-- Wait 2 more seconds
+task.wait(2)
+
+-- Teleport to another game
+local TeleportService = game:GetService("TeleportService")
+TeleportService:Teleport(4787647409, player)
