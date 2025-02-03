@@ -7,7 +7,7 @@ if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
 end
 
 -- Wait 2 seconds
-task.wait(2)
+task.wait(5)
 
 -- Fire the PairRadio remote event
 local args = {
@@ -16,7 +16,7 @@ local args = {
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Events"):WaitForChild("PairRadio"):FireServer(unpack(args))
 
 -- Wait 2 more seconds
-task.wait(2)
+task.wait(5)
 
 -- Teleport to another game
 local TeleportService = game:GetService("TeleportService")
