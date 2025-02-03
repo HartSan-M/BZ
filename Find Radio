@@ -1,0 +1,60 @@
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local player = Players.LocalPlayer
+
+-- Storage Room Positions
+local storageRoomPositions = {
+    Vector3.new(240.66171264648438, -65.00003051757812, -359.54693603515625),
+    Vector3.new(226.47463989257812, -65.00001525878906, -359.5125732421875),
+    Vector3.new(360.6492919921875, -64.84963989257812, -115.85484313964844),
+    Vector3.new(464.2278747558594, -63.9029426574707, 102.54593658447266),
+    Vector3.new(472.32794189453125, -63.89630889892578, 112.35273742675781),
+    Vector3.new(663.6240234375, -62.99991226196289, -189.42288208007812),
+    Vector3.new(666.9889526367188, -62.99991226196289, -199.90879821777344),
+    Vector3.new(672.7410278320312, -66.00003051757812, -376.7635803222656),
+    Vector3.new(663.7097778320312, -65.9000244140625, -388.82086181640625),
+    Vector3.new(500.5017395019531, -62.99903106689453, -458.6524963378906),
+    Vector3.new(511.3453674316406, -62.9990348815918, -458.57598876953125),
+    Vector3.new(489.4774169921875, -18.62345314025879, -204.32371520996094),
+    Vector3.new(495.2877197265625, -18.75001335144043, -197.56753540039062),
+    Vector3.new(343.4772033691406, -18.850200653076172, -82.07569122314453),
+    Vector3.new(358.2214050292969, -18.850202560424805, -82.07609558105469),
+    Vector3.new(284.81072998046875, -3.6751327514648438, 162.3420867919922),
+    Vector3.new(273.1063537597656, -3.67513370513916, 162.31492614746094)
+}
+
+-- Function to check if the player is on the "Patient" team
+local function isOnPatientTeam()
+    return player.Team and player.Team.Name == "Patient"
+end
+
+-- Function to teleport the player to a random storage room position
+local function teleportToRandomPosition()
+    if player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+        local randomPosition = storageRoomPositions[math.random(1, #storageRoomPositions)]
+        player.Character.HumanoidRootPart.CFrame = CFrame.new(randomPosition)
+    end
+end
+
+-- Function to check if the player has the "Radio" tool
+local function hasRadio()
+    return player.Backpack:FindFirstChild("Radio") ~= nil
+end
+
+-- Wait until the player is on the "Patient" team
+while not isOnPatientTeam() do
+    wait(1) -- Check every second
+end
+
+print("Player is on the Patient Team. Starting teleportation...")
+
+-- Start teleporting randomly until the player gets the "Radio"
+while not hasRadio() do
+    teleportToRandomPosition()
+    wait(2) -- Teleport every 2 seconds
+end
+
+print("Player has obtained the Radio. Stopping teleportation.")
+
+-- Execute the loadstring function when the player gets the radio
+loadstring(game:HttpGet('https://raw.githubusercontent.com/HartSan-M/BZ/refs/heads/main/fire%20radio'))()
